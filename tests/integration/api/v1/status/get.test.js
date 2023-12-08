@@ -24,9 +24,7 @@ describe("# Suite for API integration", () => {
 
     expect(response.status).toBe(200);
     expect(responseBody.postgres_version).toBeDefined();
-    expect(
-      responseBody.postgres_version.includes("PostgreSQL 16"),
-    ).toBeTruthy();
+    expect(responseBody.postgres_version).toEqual("16.1");
     expect(typeof responseBody.postgres_version).toEqual("string");
   });
 
@@ -36,8 +34,8 @@ describe("# Suite for API integration", () => {
 
     expect(response.status).toBe(200);
     expect(responseBody.max_connections).toBeDefined();
-    expect(typeof responseBody.max_connections).toEqual("string");
-    expect(responseBody.max_connections).toEqual("100");
+    expect(typeof responseBody.max_connections).toEqual("number");
+    expect(responseBody.max_connections).toEqual(100);
   });
 
   it("should GET api/v1/status with opened_connections", async () => {
@@ -45,7 +43,7 @@ describe("# Suite for API integration", () => {
     const responseBody = await response.json();
     expect(response.status).toBe(200);
     expect(responseBody.opened_connections).toBeDefined();
-    expect(typeof responseBody.opened_connections).toEqual("string");
+    expect(typeof responseBody.opened_connections).toEqual("number");
   });
 
   it("Should close conections when it throws error to avoid leak connections at connections pool", async () => {
