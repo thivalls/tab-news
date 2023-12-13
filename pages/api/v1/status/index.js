@@ -10,7 +10,7 @@ async function status(request, response) {
   const maxConnectionsValue = maxConnectionsResult.rows[0].max_connections;
 
   const pgActiveConnectionsResult = await database.query(
-    "SELECT COUNT(*) FROM pg_stat_activity;",
+    "SELECT count(*)::int FROM pg_stat_activity Where datname = 'local_db';",
   );
   const pgActiveConnectionsValue = pgActiveConnectionsResult.rows[0].count;
 
@@ -18,7 +18,7 @@ async function status(request, response) {
     updated_at: updatedAt,
     postgres_version: postgresVersionValue,
     max_connections: parseInt(maxConnectionsValue),
-    opened_connections: parseInt(pgActiveConnectionsValue),
+    opened_connections: pgActiveConnectionsValue,
   });
 }
 

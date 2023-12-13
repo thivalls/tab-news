@@ -44,6 +44,7 @@ describe("# Suite for API integration", () => {
     expect(response.status).toBe(200);
     expect(responseBody.opened_connections).toBeDefined();
     expect(typeof responseBody.opened_connections).toEqual("number");
+    expect(responseBody.opened_connections).toEqual(1);
   });
 
   it("Should close conections when it throws error to avoid leak connections at connections pool", async () => {
