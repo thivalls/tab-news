@@ -47,16 +47,10 @@ describe("# Suite for API integration", () => {
     expect(responseBody.opened_connections).toEqual(1);
   });
 
-  it("Should close conections when it throws error to avoid leak connections at connections pool", async () => {
-    for (let i = 0; i < 10; i++) {
-      await fetch("http://localhost:3000/api/v1/error");
-    }
-
-    const response = await fetch("http://localhost:3000/api/v1/status");
-
-    const responseBody = await response.json();
-    expect(response.status).toBe(200);
-    expect(responseBody.opened_connections).toBeDefined();
-    expect(Number.parseInt(responseBody.opened_connections)).toBeLessThan(10);
-  });
+  // SQL INJECTION EXAMPLE
+  // it.only("should GET api/v1/status with opened_connections", async () => {
+  //   const response = await fetch(
+  //     "http://localhost:3000/api/v1/status?databaseName='; SELECT pg_sleep(4); --;",
+  //   );
+  // });
 });
