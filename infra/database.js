@@ -9,7 +9,7 @@ async function query(queryObject) {
     password: process.env.POSTGRES_PASSWORD,
   });
 
-  console.log("Database Connection Config", {
+  console.log('Database Connection Config', {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
@@ -23,6 +23,7 @@ async function query(queryObject) {
     return result;
   } catch (error) {
     console.error(error);
+    throw error;
   } finally {
     await client.end();
   }
